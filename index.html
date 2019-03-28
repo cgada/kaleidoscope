@@ -56,8 +56,7 @@
                 <section class="banner style1 orient-left content-align-center image-position-right fullscreen">
                     <div class="content">
                         <!-- <img src="/img/logo.png"> -->
-                        <div class="major" id="minor" style="display:none;">
-                            <b style="color:red">Check Minor Release</b>
+                        <div class="major" id="description" style="display:none;">
                         </div>
                         <br>
                         <div class="actions vertical">
@@ -128,6 +127,8 @@
                 $("#selector").change(function() {
                     var selectedVal = $(this).find(':selected').val();
                     $("#preview-div").attr("class", selectedVal);
+                    $("#description").show();
+                    $("#description").text("A reduced sensitivity to red light due to missing or defective L-cones (or long wave cones) is known as protanopia");
                 });
 
                 $("#switch_camera").click(function() {
