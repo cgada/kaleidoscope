@@ -9,7 +9,7 @@
   xmlns="http://www.w3.org/2000/svg"
   version="1.1">
   <defs>
-    <filter id="protanopia">
+    <filter id="protanopia" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -18,7 +18,7 @@
                 0,     0.242, 0.758, 0, 0
                 0,     0,     0,     1, 0"/>
     </filter>
-    <filter id="protanomaly">
+    <filter id="protanomaly" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -26,8 +26,9 @@
                 0.333, 0.667, 0,     0, 0
                 0,     0.125, 0.875, 0, 0
                 0,     0,     0,     1, 0"/>
+      </feColorMatrix>
     </filter>
-    <filter id="deuteranopia">
+    <filter id="deuteranopia" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -35,8 +36,9 @@
                 0.7,   0.3,   0,   0, 0
                 0,     0.3,   0.7, 0, 0
                 0,     0,     0,   1, 0"/>
+                </feColorMatrix>
     </filter>
-    <filter id="deuteranomaly">
+    <filter id="deuteranomaly" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -44,8 +46,9 @@
                 0.258, 0.742, 0,     0, 0
                 0,     0.142, 0.858, 0, 0
                 0,     0,     0,     1, 0"/>
+                </feColorMatrix>
     </filter>
-    <filter id="tritanopia">
+    <filter id="tritanopia" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -54,7 +57,7 @@
                 0,    0.475, 0.525, 0, 0
                 0,    0,     0,     1, 0"/>
     </filter>
-    <filter id="tritanomaly">
+    <filter id="tritanomaly" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -62,8 +65,9 @@
                 0,     0.733, 0.267, 0, 0
                 0,     0.183, 0.817, 0, 0
                 0,     0,     0,     1, 0"/>
+                </feColorMatrix>
     </filter>
-    <filter id="achromatopsia">
+    <filter id="achromatopsia" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -71,8 +75,9 @@
                 0.299, 0.587, 0.114, 0, 0
                 0.299, 0.587, 0.114, 0, 0
                 0,     0,     0,     1, 0"/>
+                </feColorMatrix>
     </filter>
-    <filter id="achromatomaly">
+    <filter id="achromatomaly" filterRes="1">
       <feColorMatrix
         in="SourceGraphic"
         type="matrix"
@@ -80,6 +85,7 @@
                 0.163, 0.775, 0.062, 0, 0
                 0.163, 0.320, 0.516, 0, 0
                 0,     0,     0,     1, 0"/>
+                </feColorMatrix>
     </filter>
   </defs>
 </svg>
