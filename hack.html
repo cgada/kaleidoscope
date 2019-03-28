@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>StarterHacks 2018</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="css/landing.css" />
+        <style>
+          .protanopia {
+            -webkit-filter: url('filters.svg#protanopia');
+            filter: url('filters.svg#protanopia');
+          }
+
+          .protanomaly {
+            -webkit-filter: url('filters.svg#protanomaly');
+            filter: url('filters.svg#protanomaly');
+          }
+
+          .deuteranopia {
+            -webkit-filter: url('filters.svg#deuteranopia');
+            filter: url('filters.svg#deuteranopia');
+          }
+
+          .deuteranomaly {
+            -webkit-filter: url('filters.svg#deuteranomaly');
+            filter: url('filters.svg#deuteranomaly');
+          }
+
+          .tritanopia {
+            -webkit-filter: url('filters.svg#tritanopia');
+            filter: url('filters.svg#tritanopia');
+          }
+
+          .tritanomaly {
+            -webkit-filter: url('filters.svg#tritanomaly');
+            filter: url('filters.svg#tritanomaly');
+          }
+
+          .achromatopsia {
+            -webkit-filter: url('filters.svg#achromatopsia');
+            filter: url('filters.svg#achromatopsia');
+          }
+
+          .achromatomaly {
+            -webkit-filter: url('filters.svg#achromatomaly');
+            filter: url('filters.svg#achromatomaly');
+          }
+        </style>
+    </head>
+    <body>
+
+        <!-- Wrapper -->
+            <div id="wrapper" class="divided">
+
+                <!-- One -->
+                <section class="banner style1 orient-left content-align-center image-position-right fullscreen">
+                    <div class="content">
+                        <!-- <img src="/img/logo.png"> -->
+                        <div id="description" style="display:none;">
+                        </div>
+                        <br>
+                        <div class="actions vertical">
+                                <select id="selector">
+                                    <option value="none" selected="">None</option>
+                                    <option value="protanomaly">Protanomaly</option>
+                                    <option value="protanopia">Protanopia</option>
+                                    <option value="deuteranomaly">Deuteranomaly</option>
+                                    <option value="deuteranopia">Deuteranopia</option>
+                                    <option value="tritanomaly">Tritanomaly</option>
+                                    <option value="tritanopia">Tritanopia</option>
+                                    <option value="achromatomaly">Achromatomaly</option>
+                                    <option value="achromatopsia">Achromatopsia</option>
+                                </select>
+                            </div>
+                        <br>
+                        <div class="actions vertical">
+                            <button id="switch_camera" class="button big wide smooth-scroll-middle">Switch Camera</button>
+                        </div>
+                    </div>
+                    <div class="" id="preview-div">
+                        <video id="preview" playsinline="" autoplay="" muted=""></video>
+                    </div>
+                </section>
+            </div>
+
+
+        <!-- Scripts -->
+            <script src="js/jquery.min.js"></script>
+            <script src="js/instascan.min.js"></script>
+            <script type="text/javascript">
+                var descriptions = {
+                  "protanopia": "A reduced sensitivity to red light due to missing L-cones (or long wave cones) is known as protanopia",
+                  "protanomaly": "A reduced sensitivity to red light due to defective L-cones (or long wave cones) is known as protanopia",
+                  "deuteranopia": " A reduced sensitivity to green light due to missing M-waves (or medium wave cones) is known as deuteranopia",
+                  "deuteranomaly": " A reduced sensitivity to green light due to defective M-waves (or medium wave cones) is known as deuteranomaly",
+                  "tritanopia": "The absence of s-cones (or shortwave cones) is a condition called Tritanopia. It alters the ability to distinguish some blues from greens and some yellows from violet",
+                  "tritanomaly": "The presence of weakened s-cones (or shortwave cones) is a condition called Tritanopia. It alters the ability to distinguish some blues from greens and some yellows from violet",
+                  "achromatopsia": "There are some who can not see any color at all–to them the world is a black and white movie. This is known as monochromacy or achromatopsia and is due to non-functioning or absent retinal cones",
+                  "achromatomaly": "Achromatomaly occurs due to non-functioning or absent retinal cones and results in the person not being able to see almost no colors",
+                };
+                var current_identifier = "";
+                var current_camera;
+                let opts = {
+                    continuous: true,
+                    video: document.getElementById('preview'),
+                    mirror: false
+                }
+                let scanner = new Instascan.Scanner(opts);
+                Instascan.Camera.getCameras().then(function (cameras) {
+                    if (cameras.length > 1) {
+                      current_camera = 1;
+                      scanner.start(cameras[1]);
+                    } else if (cameras.length > 0) {
+                      current_camera = 0;
+                      scanner.start(cameras[0]);
+                    } else {
+                      console.error('No cameras found.');
+                    }
+                }).catch(function (e) {
+                    console.error(e);
+                });
+
+                $("#selector").change(function() {
+                    var selectedVal = $(this).find(':selected').val();
+                    $("#preview-div").attr("class", selectedVal);
+                    $("#description").show();
+                    $("#description").text(descriptions[selectedVal] || "");
+                });
+
+                $("#switch_camera").click(function() {
+                    Instascan.Camera.getCameras().then(function (cameras) {
+                    if (cameras.length > 1) {
+                        current_camera += 1;
+                        scanner.stop().then(function () {
+                            scanner.start(cameras[current_camera % cameras.length]);
+                        })
+                    }
+                    }).catch(function (e) {
+                        console.error(e);
+                    });
+                });
+
+            </script>
+    </body>
+</html>

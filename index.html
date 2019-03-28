@@ -5,47 +5,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="css/landing.css" />
-        <style>
-          .protanopia {
-            -webkit-filter: url('filters.svg#protanopia');
-            filter: url('filters.svg#protanopia');
-          }
-
-          .protanomaly {
-            -webkit-filter: url('filters.svg#protanomaly');
-            filter: url('filters.svg#protanomaly');
-          }
-
-          .deuteranopia {
-            -webkit-filter: url('filters.svg#deuteranopia');
-            filter: url('filters.svg#deuteranopia');
-          }
-
-          .deuteranomaly {
-            -webkit-filter: url('filters.svg#deuteranomaly');
-            filter: url('filters.svg#deuteranomaly');
-          }
-
-          .tritanopia {
-            -webkit-filter: url('filters.svg#tritanopia');
-            filter: url('filters.svg#tritanopia');
-          }
-
-          .tritanomaly {
-            -webkit-filter: url('filters.svg#tritanomaly');
-            filter: url('filters.svg#tritanomaly');
-          }
-
-          .achromatopsia {
-            -webkit-filter: url('filters.svg#achromatopsia');
-            filter: url('filters.svg#achromatopsia');
-          }
-
-          .achromatomaly {
-            -webkit-filter: url('filters.svg#achromatomaly');
-            filter: url('filters.svg#achromatomaly');
-          }
-        </style>
     </head>
     <body>
 
@@ -56,94 +15,29 @@
                 <section class="banner style1 orient-left content-align-center image-position-right fullscreen">
                     <div class="content">
                         <!-- <img src="/img/logo.png"> -->
-                        <div class="major" id="description" style="display:none;">
+                        <h2> What is Colour Blindness? </h2>
+                        <div id="description">
+                          About 8% of all men and 0.5% of all women are colourblind. The most common form is red-green colour blindness which affects much more men than women, as it is encoded on the x-chromosome (sex-linked) and usually inherited from a mother to her son.
+
+But Colour blindness is not ‘colour blindness’! There are still many people who think colourblind people can’t really see any colours. But the term is misleading. More than 99% of all colourblind people can see colours. A better wording would be colour vision deficiency, which describes this visual disorder much more precisely.
                         </div>
-                        <br>
-                        <div class="actions vertical">
-                                <select id="selector">
-                                    <option value="none" selected="">None</option>
-                                    <option value="protanopia">Protanopia</option>
-                                    <option value="protanomaly">Protanomaly</option>
-                                    <option value="deuteranopia">Deuteranopia</option>
-                                    <option value="deuteranomaly">Deuteranomaly</option>
-                                    <option value="tritanopia">Tritanopia</option>
-                                    <option value="tritanomaly">Tritanomaly</option>
-                                    <option value="achromatopsia">Achromatopsia</option>
-                                    <option value="achromatomaly">Achromatomaly</option>
-                                </select>
-                            </div>
-                        <br>
-                        <div class="actions vertical">
-                            <button id="advanced_options" class="button big wide smooth-scroll-middle">Show Advanced Options</button>
-                        </div>
-                        <br>
-                        <div class="actions vertical" style="display:none;" id="advanced_options_view">
-                            <div class="actions vertical">
-                                <button id="switch_camera" class="button big wide smooth-scroll-middle">Switch Camera</button>
-                            </div>
-                            <br>
-                        </div>
+                        <br><br>
+                        <h2> The cause of colour blindness </h2>
+                        <div>
+Colour perception in the human eye is build up by three different types of cones. Each type is sensitive to a certain wavelength of light (red, green, and blue) and every perceived colour is therefore a mixture of stimuli of those three cone types.
+
+Now, if you one of those peaks of sensitivity is shifted towards another one or if one is missing at all, you perceive a narrower colour spectrum—in other words you are colourblind. As a peak can be shifted everything between a little bit and the whole way, any type of severity is possible. The closer the peaks are the more severe is your colour vision deficiency: slightly, moderately, strongly, or absolutely colourblind.
+</div>
+<div>
+    <br><br>
+  <h3> This Colour Blindness Simulator is a tool to simulate some form of colour vision deficiency. It should allow you to experience the art at this show through a different lens. Currently, CBS should work on a newish phone on a newish browser. </h3>
+</div>
+                    <div>
+                        <a href="hack.html" class="button big wide smooth-scroll-middle">Colour Blindness Simulator</a>
                     </div>
-                    <div class="" id="preview-div">
-                        <video id="preview" playsinline="" autoplay="" muted=""></video>
-                    </div>
+                </div>
                 </section>
             </div>
 
-
-        <!-- Scripts -->
-            <script src="js/jquery.min.js"></script>
-            <script src="js/instascan.min.js"></script>
-            <script type="text/javascript">
-                $("#minor").hide();
-                $("#status").hide();
-                $("#check_in").hide();
-                var current_identifier = "";
-                var current_camera;
-                let opts = {
-                    continuous: true,
-                    video: document.getElementById('preview'),
-                    mirror: false
-                }
-                let scanner = new Instascan.Scanner(opts);
-                Instascan.Camera.getCameras().then(function (cameras) {
-                    if (cameras.length > 1) {
-                      current_camera = 1;
-                      scanner.start(cameras[1]);
-                    } else if (cameras.length > 0) {
-                      current_camera = 0;
-                      scanner.start(cameras[0]);
-                    } else {
-                      console.error('No cameras found.');
-                    }
-                }).catch(function (e) {
-                    console.error(e);
-                });
-
-                $("#advanced_options").click(function() {
-                    $("#advanced_options_view").toggle();
-                });
-
-                $("#selector").change(function() {
-                    var selectedVal = $(this).find(':selected').val();
-                    $("#preview-div").attr("class", selectedVal);
-                    $("#description").show();
-                    $("#description").text("A reduced sensitivity to red light due to missing or defective L-cones (or long wave cones) is known as protanopia");
-                });
-
-                $("#switch_camera").click(function() {
-                    Instascan.Camera.getCameras().then(function (cameras) {
-                    if (cameras.length > 1) {
-                        current_camera += 1;
-                        scanner.stop().then(function () {
-                            scanner.start(cameras[current_camera % cameras.length]);
-                        })
-                    }
-                    }).catch(function (e) {
-                        console.error(e);
-                    });
-                });
-
-            </script>
     </body>
 </html>
